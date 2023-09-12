@@ -1,10 +1,12 @@
 FROM debian:buster
 
-COPY ./tools/init.sql /docker-entrypoint-initdb.d/
 
-RUN apt -y update
-RUN apt install -y mariadb-server
+RUN apt-get update -y && apt-get install mariadb-server -y
 
-EXPOSE 3306
+COPY ./tools/50-server.cnf /etc/mysql/mariadb.conf.d/
 
-CMD ["mysqld"]
+
+COPY ./tools/script.sh /
+RUN chmod +x /script.sh
+
+CMD ["/script.sh"]

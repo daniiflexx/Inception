@@ -1,17 +1,54 @@
+networks:
+  inception:
+    name: inception
+
 services:
   nginx:
+    image: nginx:dcruz
     container_name: nginx
     build: ./requirements/nginx
     ports:
       - 443:443
-    volumes:
-      - wordpress_data:/var/www/html
+    restart: always
+    depends_on:
+      - wordpress
+    networks:
+      - inception
+    env_file:
+      - .env
+
+  mariadb:
+    container_name: mariadb
+    build: ./requirements/mariadb
+    image: mariadb:42
+    env_file:
+      - .env
     restart: always
     networks:
-      - network
-
+      - inception
+    volumes:
+      - mariadb_data:/var/lib/mysql
+  wordpress:
+    container_name: wordpress
+    build: ./requirements/wordpress
+    image: wordpress:42
+    env_file:
+      - .env
+    restart: always
+    depends_on:
+      - mariadb
+    networks:
+      - inception
+    volumes:
+      - wordpress_data:/var/www/html
 volumes:
-    wordpress_data:
+  mariadb_data:
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/dcruz-na/data/mysql
+      o: bind
+  wordpress_data:
     driver: local
     driver_opts:
       type: none
