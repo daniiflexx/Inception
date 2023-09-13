@@ -5,9 +5,7 @@ RUN		apt-get update
 RUN		apt-get install -y nginx \
                 openssl
 
-RUN touch /usr/share/nginx/html/index.html
 
-COPY ./conf/index.html /usr/share/nginx/html/index.html
 COPY ./conf/nginx.conf /etc/nginx/conf.d
 
 # nginx config

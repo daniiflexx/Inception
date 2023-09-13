@@ -3,7 +3,7 @@ all:
 clean:
 	sudo docker stop mariadb nginx wordpress
 	sudo docker rm nginx mariadb wordpress
-	sudo docker rmi nginx:dcruz wordpress:42 mariadb:42
+	sudo docker rmi nginx:dcruz wordpress:dcruz mariadb:dcruz
 	sudo rm -rf ~/data/wordpress/* ~/data/mariadb/*
 	
 re:	

@@ -2,7 +2,6 @@
 
 
 
-# create directory to use in nginx container later and also to setup the wordpress conf
 mkdir /var/www/
 mkdir /var/www/html
 

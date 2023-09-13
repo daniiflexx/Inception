@@ -20,7 +20,7 @@ services:
   mariadb:
     container_name: mariadb
     build: ./requirements/mariadb
-    image: mariadb:42
+    image: mariadb:dcruz
     env_file:
       - .env
     restart: always
@@ -31,7 +31,7 @@ services:
   wordpress:
     container_name: wordpress
     build: ./requirements/wordpress
-    image: wordpress:42
+    image: wordpress:dcruz
     env_file:
       - .env
     restart: always
@@ -46,7 +46,7 @@ volumes:
     driver: local
     driver_opts:
       type: none
-      device: /home/dcruz-na/data/mysql
+      device: /home/dcruz-na/data/mariadb
       o: bind
   wordpress_data:
     driver: local
